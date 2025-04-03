@@ -5,6 +5,8 @@ package org.example.viewmodel;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import org.example.model.Plant;
@@ -26,8 +28,9 @@ public class PlantViewModel {
     private final ObjectProperty<PlantDTO> selectedPlant = new SimpleObjectProperty<>();
 
     // Commands
-    private final Command addCommand;
     private final Command updateCommand;
+    private final Command addCommand;
+    //private final Command updateCommand;
     private final Command deleteCommand;
     private final Command clearFieldsCommand;
 
@@ -103,6 +106,8 @@ public class PlantViewModel {
         }
     }
 
+
+
     public void deletePlant() {
         if (selectedPlant.get() != null && repository.deleteById(selectedPlant.get().getPlant_id()) != 0) {
             loadPlants();
@@ -141,19 +146,21 @@ public class PlantViewModel {
     public ObjectProperty<PlantDTO> selectedPlantProperty() { return selectedPlant; }
 
     // Expose commands for FXML binding
-    public Command getAddCommand() {
-        return addCommand;
-    }
-
     public Command getUpdateCommand() {
         return updateCommand;
+    }
+
+    public Command getAddCommand() {
+        return addCommand;
     }
 
     public Command getDeleteCommand() {
         return deleteCommand;
     }
+
     public Command getClearFieldsCommand() {
         return clearFieldsCommand;
     }
+
 }
 

@@ -42,10 +42,10 @@
 
             <!-- Buttons -->
             <HBox spacing="10">
-                <Button text="Add Plant" onAction="#handleAddPlant"/>
-                <Button text="Update Plant" onAction="#handleUpdatePlant"/>
-                <Button text="Delete Plant" onAction="#handleDeletePlant"/>
-                <Button text="Clear Fields" onAction="#handleClearFields"/>
+                <Button fx:id="addButton" text="Add Plant" />
+                <Button fx:id="updateButton" text="Update Plant" />
+                <Button fx:id="deleteButton" text="Delete Plant" />
+                <Button fx:id="clearFieldsButton" text="Clear Fields" />
             </HBox>
         </VBox>
     </HBox>

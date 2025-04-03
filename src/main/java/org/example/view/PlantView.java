@@ -1,5 +1,6 @@
 package org.example.view;
 
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -10,6 +11,10 @@ import java.awt.event.MouseEvent;
 
 public class PlantView {
     private final PlantViewModel viewModel = new PlantViewModel();
+    public Button updateButton;
+    public Button deleteButton;
+    public Button clearFieldsButton;
+    public Button addButton;
 
     @FXML private TableView<PlantDTO> plantTable;
     @FXML private TableColumn<PlantDTO, Integer> idColumn;
@@ -44,28 +49,14 @@ public class PlantView {
 
         // Bind selected row to ViewModel
         viewModel.selectedPlantProperty().bind(plantTable.getSelectionModel().selectedItemProperty());
-    }
 
-    @FXML
-    private void handleAddPlant() {
-        viewModel.getAddCommand().execute(null);
-    }
+        //Bind buttons
+        updateButton.onActionProperty().bind(viewModel.getUpdateCommand());
+        addButton.onActionProperty().bind(viewModel.getAddCommand());
+        deleteButton.onActionProperty().bind(viewModel.getDeleteCommand());
+        clearFieldsButton.onActionProperty().bind(viewModel.getClearFieldsCommand());
 
-    @FXML
-    private void handleUpdatePlant() {
-        viewModel.getUpdateCommand().execute(null);
     }
-
-    @FXML
-    private void handleDeletePlant() {
-        viewModel.getDeleteCommand().execute(null);
-    }
-
-    @FXML
-    private void handleClearFields() {
-        viewModel.getClearFieldsCommand().execute(null); // Clear the fields
-    }
-
 
     private void showAlert(String message, String title, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType, message, ButtonType.OK);
