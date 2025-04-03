@@ -1,7 +1,7 @@
-package org.example.presenter;
+package org.example.oldpresenter;
 
 import javafx.scene.layout.VBox;
-import org.example.presenter.dto.SpecimenDTO;
+import org.example.viewmodel.dto.SpecimenDTO;
 
 import java.util.List;
 

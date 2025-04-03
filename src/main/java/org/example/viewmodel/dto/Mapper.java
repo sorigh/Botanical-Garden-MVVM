@@ -1,4 +1,4 @@
-package org.example.presenter.dto;
+package org.example.viewmodel.dto;
 
 import org.example.model.Plant;
 import org.example.model.Specimen;

@@ -3,8 +3,10 @@ package org.example.view;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import org.example.presenter.dto.PlantDTO;
 import org.example.viewmodel.PlantViewModel;
+import org.example.viewmodel.dto.PlantDTO;
+
+import java.awt.event.MouseEvent;
 
 public class PlantView {
     private final PlantViewModel viewModel = new PlantViewModel();
@@ -45,22 +47,25 @@ public class PlantView {
     }
 
     @FXML
-    private void onAddPlant() {
-        viewModel.addPlant();
-        showAlert("The plant has been added successfully.", "Add Plant", Alert.AlertType.INFORMATION);
+    private void handleAddPlant() {
+        viewModel.getAddCommand().execute(null);
     }
 
     @FXML
-    private void onUpdatePlant() {
-        viewModel.updatePlant();
-        showAlert("The plant has been updated successfully.", "Update Plant", Alert.AlertType.INFORMATION);
+    private void handleUpdatePlant() {
+        viewModel.getUpdateCommand().execute(null);
     }
 
     @FXML
-    private void onDeletePlant() {
-        viewModel.deletePlant();
-        showAlert("The plant has been deleted successfully.", "Delete Plant", Alert.AlertType.INFORMATION);
+    private void handleDeletePlant() {
+        viewModel.getDeleteCommand().execute(null);
     }
+
+    @FXML
+    private void handleClearFields() {
+        viewModel.getClearFieldsCommand().execute(null); // Clear the fields
+    }
+
 
     private void showAlert(String message, String title, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType, message, ButtonType.OK);

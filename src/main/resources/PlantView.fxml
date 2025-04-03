@@ -1,14 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="$CONTROLLER_NAME$"
-            prefHeight="400.0" prefWidth="600.0" >
+<?import javafx.geometry.Insets?>
+<GridPane fx:controller="org.example.view.PlantView"
+          xmlns:fx="http://javafx.com/fxml"
+          hgap="10" vgap="10">
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
 
-</AnchorPane>
+    <!-- Main layout with TableView on the left and input fields on the right -->
+    <HBox GridPane.columnSpan="2" spacing="10" HBox.hgrow="ALWAYS">
+        <!-- TableView on the left -->
+        <VBox>
+            <TableView fx:id="plantTable" prefWidth="500">
+                <columns>
+                    <TableColumn text="ID" fx:id="idColumn"/>
+                    <TableColumn text="Name" fx:id="nameColumn"/>
+                    <TableColumn text="Type" fx:id="typeColumn"/>
+                    <TableColumn text="Species" fx:id="speciesColumn"/>
+                    <TableColumn text="Carnivore" fx:id="carnivoreColumn"/>
+                </columns>
+            </TableView>
+        </VBox>
+
+        <!-- Form on the right -->
+        <VBox spacing="10">
+            <Label text="Name:"/>
+            <TextField fx:id="nameField"/>
+
+            <Label text="Type:"/>
+            <TextField fx:id="typeField"/>
+
+            <Label text="Species:"/>
+            <TextField fx:id="speciesField"/>
+
+            <Label text="Carnivore:"/>
+            <TextField fx:id="carnivoreField"/>
+
+            <!-- Buttons -->
+            <HBox spacing="10">
+                <Button text="Add Plant" onAction="#handleAddPlant"/>
+                <Button text="Update Plant" onAction="#handleUpdatePlant"/>
+                <Button text="Delete Plant" onAction="#handleDeletePlant"/>
+                <Button text="Clear Fields" onAction="#handleClearFields"/>
+            </HBox>
+        </VBox>
+    </HBox>
+
+    <Label fx:id="messageLabel" GridPane.rowIndex="6" GridPane.columnSpan="2"/>
+</GridPane>

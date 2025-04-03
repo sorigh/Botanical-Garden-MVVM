@@ -1,5 +1,7 @@
-package model.repository;
-import model.Specimen;
+package org.example.model.repository;
+
+
+import org.example.model.Specimen;
 
 public class SpecimenRepository extends AbstractRepository<Specimen> {
 

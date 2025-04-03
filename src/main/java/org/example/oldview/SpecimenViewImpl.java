@@ -1,4 +1,4 @@
-package org.example.view;
+package org.example.oldview;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
@@ -6,9 +6,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import org.example.presenter.SpecimenPresenter;
-import org.example.presenter.SpecimenView;
-import org.example.presenter.dto.SpecimenDTO;
+import org.example.oldpresenter.SpecimenPresenter;
+import org.example.oldpresenter.SpecimenView;
+import org.example.viewmodel.dto.SpecimenDTO;
 
 import java.util.List;
 

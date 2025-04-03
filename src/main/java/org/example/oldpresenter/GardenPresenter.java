@@ -1,4 +1,4 @@
-package org.example.presenter;
+package org.example.oldpresenter;
 
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -9,8 +9,8 @@ import org.example.model.Plant;
 import org.example.model.Specimen;
 import org.example.model.repository.PlantRepository;
 import org.example.model.repository.SpecimenRepository;
-import org.example.presenter.dto.Mapper;
-import org.example.presenter.dto.SpecimenDTO;
+import org.example.viewmodel.dto.Mapper;
+import org.example.viewmodel.dto.SpecimenDTO;
 
 import java.io.File;
 import java.util.List;

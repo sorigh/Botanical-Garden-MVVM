@@ -71,7 +71,7 @@ public class AbstractRepository<T> {
         }
         fields.append(") ");
         values.append(")");
-        String query = fields.toString() + values.toString();
+        String query = fields + values.toString();
 
 
         try (Connection connection = ConnectionFactory.getConnection();
@@ -122,21 +122,18 @@ public class AbstractRepository<T> {
         }
     }
 
-    public int delete(T object) {
-        Field primaryKeyField = type.getDeclaredFields()[0];
-        primaryKeyField.setAccessible(true); // Permite accesul la câmpurile private
 
+    public int deleteById(int id) {
+        Field primaryKeyField = type.getDeclaredFields()[0];
         String query = "DELETE FROM " + type.getSimpleName() + " WHERE " + primaryKeyField.getName() + " = ?";
 
         try (Connection connection = ConnectionFactory.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
 
-            Object primaryKeyValue = primaryKeyField.get(object); // Obține valoarea ID-ului obiectului
-            statement.setObject(1, primaryKeyValue);
-
+            statement.setInt(1, id);
             return statement.executeUpdate();
-        } catch (SQLException | IllegalAccessException e) {
-            LOGGER.log(Level.WARNING, "Error executing delete: " + e.getMessage());
+        } catch (SQLException e) {
+            LOGGER.log(Level.WARNING, "Error executing deleteById: " + e.getMessage());
             return 0;
         }
     }

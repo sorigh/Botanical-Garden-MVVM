@@ -1,4 +1,4 @@
-package org.example.presenter.dto;
+package org.example.viewmodel.dto;
 
 public class SpecimenDTO {
     int specimen_id;

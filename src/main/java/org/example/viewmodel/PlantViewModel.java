@@ -1,10 +1,15 @@
-package org.example.presenter;
+
+
+package org.example.viewmodel;
+
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import org.example.model.Plant;
 import org.example.model.repository.PlantRepository;
-import org.example.presenter.dto.PlantDTO;
+import org.example.viewmodel.dto.PlantDTO;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,9 +25,22 @@ public class PlantViewModel {
     private final StringProperty carnivore = new SimpleStringProperty();
     private final ObjectProperty<PlantDTO> selectedPlant = new SimpleObjectProperty<>();
 
+    // Commands
+    private final Command addCommand;
+    private final Command updateCommand;
+    private final Command deleteCommand;
+    private final Command clearFieldsCommand;
+
     public PlantViewModel() {
         this.repository = new PlantRepository();
         loadPlants();
+        setupListeners();
+
+        // Define the commands
+        this.addCommand = new Command(this::addPlant);
+        this.updateCommand = new Command(this::updatePlant);
+        this.deleteCommand = new Command(this::deletePlant);
+        this.clearFieldsCommand = new Command(this::clearFields);
 
         selectedPlant.addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
@@ -33,7 +51,24 @@ public class PlantViewModel {
             }
         });
 
+    }
 
+    public void clearFields() {
+        name.set("");
+        type.set("");
+        species.set("");
+        carnivore.set("");
+    }
+
+    private void setupListeners() {
+        selectedPlant.addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                name.set(newValue.getName());
+                type.set(newValue.getType());
+                species.set(newValue.getSpecies());
+                carnivore.set(String.valueOf(newValue.getCarnivore()));
+            }
+        });
     }
 
     public void loadPlants() {
@@ -44,36 +79,48 @@ public class PlantViewModel {
     }
 
     public void addPlant() {
-        Plant plant = getPlantFromFields();
-        if (plant == null) return;
-
-        if (repository.insert(plant) != 0) {
+        Plant plant = createPlantFromFields();
+        if (plant != null && repository.insert(plant) != 0) {
             loadPlants();
+            showAlert("Success", "Plant added successfully!", AlertType.INFORMATION);
+        } else {
+            showAlert("Failure", "Failed to add plant.", AlertType.ERROR);
         }
     }
 
     public void updatePlant() {
         if (selectedPlant.get() == null) return;
 
-        Plant plant = getPlantFromFields();
-        if (plant == null) return;
-
-        plant.setPlant_id(selectedPlant.get().getPlant_id());
-
-        if (repository.update(plant) != 0) {
-            loadPlants();
+        Plant plant = createPlantFromFields();
+        if (plant != null) {
+            plant.setPlant_id(selectedPlant.get().getPlant_id());
+            if (repository.update(plant) != 0) {
+                loadPlants();
+                showAlert("Success", "Plant updated successfully!", AlertType.INFORMATION);
+            } else {
+                showAlert("Failure", "Failed to update plant.", AlertType.ERROR);
+            }
         }
     }
 
     public void deletePlant() {
-        if (selectedPlant.get() == null) return;
-
-        if (repository.deleteById(selectedPlant.get().getPlant_id()) != 0) {
+        if (selectedPlant.get() != null && repository.deleteById(selectedPlant.get().getPlant_id()) != 0) {
             loadPlants();
+            showAlert("Success", "Plant deleted successfully!", AlertType.INFORMATION);
+        } else {
+            showAlert("Failure", "Failed to delete plant.", AlertType.ERROR);
         }
     }
 
-    private Plant getPlantFromFields() {
+    private void showAlert(String title, String message, AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    private Plant createPlantFromFields() {
         try {
             return new Plant(name.get(), type.get(), species.get(), Integer.parseInt(carnivore.get()));
         } catch (NumberFormatException e) {
@@ -82,13 +129,7 @@ public class PlantViewModel {
     }
 
     private PlantDTO convertToDTO(Plant plant) {
-        return new PlantDTO(
-                plant.getPlant_id(),
-                plant.getName(),
-                plant.getSpecies(),
-                plant.getType(),
-                plant.getCarnivore()
-        );
+        return new PlantDTO(plant.getPlant_id(), plant.getName(), plant.getSpecies(), plant.getType(), plant.getCarnivore());
     }
 
     // Getters for View Binding
@@ -98,4 +139,21 @@ public class PlantViewModel {
     public StringProperty speciesProperty() { return species; }
     public StringProperty carnivoreProperty() { return carnivore; }
     public ObjectProperty<PlantDTO> selectedPlantProperty() { return selectedPlant; }
+
+    // Expose commands for FXML binding
+    public Command getAddCommand() {
+        return addCommand;
+    }
+
+    public Command getUpdateCommand() {
+        return updateCommand;
+    }
+
+    public Command getDeleteCommand() {
+        return deleteCommand;
+    }
+    public Command getClearFieldsCommand() {
+        return clearFieldsCommand;
+    }
 }
+

@@ -1,4 +1,4 @@
-package org.example.presenter;
+package org.example.oldpresenter;
 
 
 import javafx.scene.control.TableCell;
@@ -9,7 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.example.model.Specimen;
 import org.example.model.repository.SpecimenRepository;
-import org.example.presenter.dto.SpecimenDTO;
+import org.example.viewmodel.dto.SpecimenDTO;
 
 
 import java.io.File;

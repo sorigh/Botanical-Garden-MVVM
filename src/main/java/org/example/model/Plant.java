@@ -12,7 +12,14 @@ public class Plant {
 
 
 	public Plant(String name, String type, String species, int carnivore) {
-		super();
+		this.name = name;
+		this.type = type;
+		this.species = species;
+		this.carnivore = carnivore;
+	}
+
+	public Plant(int plant_id, String name, String type, String species, int carnivore) {
+		this.plant_id = plant_id;
 		this.name = name;
 		this.type = type;
 		this.species = species;

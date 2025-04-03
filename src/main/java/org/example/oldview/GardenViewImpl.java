@@ -1,4 +1,4 @@
-package org.example.view;
+package org.example.oldview;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -7,10 +7,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-import org.example.presenter.GardenView;
-import org.example.presenter.GardenPresenter;
-import org.example.presenter.dto.PlantDTO;
-import org.example.presenter.dto.SpecimenDTO;
+import org.example.oldpresenter.GardenView;
+import org.example.oldpresenter.GardenPresenter;
+import org.example.viewmodel.dto.PlantDTO;
+import org.example.viewmodel.dto.SpecimenDTO;
 
 import java.util.List;
 
