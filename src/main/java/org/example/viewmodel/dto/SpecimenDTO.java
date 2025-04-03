@@ -1,19 +1,28 @@
-package org.example.model;
+package org.example.presenter.dto;
 
-public class Specimen {
+public class SpecimenDTO {
     int specimen_id;
     int plant_id;
     String location;
     String imageUrl;
 
-    public Specimen(String location, String imageUrl, int plantId) {
+    public SpecimenDTO(String location, String imageUrl, int plantId) {
         this.location = location;
         this.imageUrl = imageUrl;
         this.plant_id = plantId;
     }
 
-    public Specimen() {
+    public SpecimenDTO(int specimenId, int plantId, String location, String imageUrl) {
+        this.specimen_id = specimenId;
+        this.location = location;
+        this.imageUrl = imageUrl;
+        this.plant_id = plantId;
+    }
 
+    public SpecimenDTO(int specimenId, int plantId, String location) {
+        this.specimen_id = specimenId;
+        this.location = location;
+        this.plant_id = plantId;
     }
 
 
@@ -51,7 +60,7 @@ public class Specimen {
 
     @Override
     public String toString() {
-        return "Specimen{" +
+        return "SpecimenDTO{" +
                 "specimen_id=" + specimen_id +
                 ", plant_id=" + plant_id +
                 ", location='" + location + '\'' +

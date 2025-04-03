@@ -9,20 +9,19 @@ import org.example.model.Plant;
 import org.example.model.Specimen;
 import org.example.model.repository.PlantRepository;
 import org.example.model.repository.SpecimenRepository;
-import org.example.presenter.dto.Maper;
+import org.example.presenter.dto.Mapper;
 import org.example.presenter.dto.SpecimenDTO;
-import org.example.view.GardenViewImpl;
 
 import java.io.File;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class GardenViewPresenter {
+public class GardenPresenter {
     private GardenView view;
     private PlantRepository plantRepository;
     private SpecimenRepository specimenRepository;
 
-    public GardenViewPresenter(GardenView view) {
+    public GardenPresenter(GardenView view) {
         this.view = view;
         this.plantRepository = new PlantRepository();
         this.specimenRepository = new SpecimenRepository();
@@ -30,13 +29,20 @@ public class GardenViewPresenter {
 
     public void loadAllPlants() {
         List<Plant> plants = plantRepository.getTableContent();
-        view.displayPlants(Maper.mapToDTO(plants));
+        view.displayPlants(Mapper.mapToDTO(plants));
     }
 
-    public void loadAllSpecimens() {
-        List<Specimen> specimens = specimenRepository.getTableContent();
-        view.displaySpecimens(Maper.mapToDTOSpecimen(specimens));
+
+    public void loadSpecimens() {
+        List<SpecimenDTO> specimens = specimenRepository.getTableContent().stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
+        view.displaySpecimens(specimens);
     }
+    private SpecimenDTO toDTO(Specimen specimen) {
+        return new SpecimenDTO(specimen.getSpecimen_id(), specimen.getPlant_id(), specimen.getLocation(), specimen.getImageUrl());
+    }
+
 
     public void filterPlants(String type, boolean isCarnivorous) {
         List<Plant> filteredPlants = plantRepository.getTableContent().stream()
@@ -44,7 +50,7 @@ public class GardenViewPresenter {
                 .filter(p -> (!isCarnivorous || p.getCarnivore() == 1))
                 .collect(Collectors.toList());
 
-        view.displayPlants(Maper.mapToDTO(filteredPlants));
+        view.displayPlants(Mapper.mapToDTO(filteredPlants));
     }
 
     public void exportPlantsToCSV() {
@@ -87,4 +93,25 @@ public class GardenViewPresenter {
         });
     }
 
+    public List<SpecimenDTO> filterSpecimens(String query) {
+        List<SpecimenDTO> allSpecimens = specimenRepository.getTableContent().stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
+
+        if (query == null || query.isEmpty()) {
+            return allSpecimens;
+        }
+
+        return allSpecimens.stream()
+                .filter(s -> String.valueOf(s.getSpecimen_id()).contains(query) ||
+                        String.valueOf(s.getPlant_id()).contains(query) ||
+                        s.getLocation().toLowerCase().contains(query.toLowerCase()))
+                .collect(Collectors.toList());
+    }
+
+    public void exportPlantsToDOC() {
+        String filePath = "plants_list.docx"; // Example file path
+        List<Plant> plants = plantRepository.getTableContent();
+        PlantExporter.exportToDOC(plants, filePath);
+    }
 }

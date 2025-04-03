@@ -2,21 +2,19 @@ package org.example.presenter;
 
 import javafx.scene.layout.VBox;
 import org.example.presenter.dto.PlantDTO;
+import org.example.presenter.dto.SpecimenDTO;
 
 import java.util.List;
 
-public interface PlantView {
+public interface GardenView {
+
+    void displaySpecimens(List<SpecimenDTO> plants);
+
     void displayPlants(List<PlantDTO> plants);
-    void displayPlant(PlantDTO plant);
+
     void showMessage(String message);
     void showError(String errorMessage);
-
-    String getPlantName();
-    String getPlantType();
-    String getPlantSpecies();
-    String getPlantCarnivore();
-
-    PlantDTO getSelectedProduct();
+    void setImageColumnFactory();
 
     VBox getView();
 }

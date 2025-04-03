@@ -1,9 +1,10 @@
-package presenter;
+package org.example.presenter;
 
-import model.Plant;
-import model.Specimen;
+
 import org.apache.poi.xwpf.usermodel.*;
-import model.repository.PlantRepository;
+import org.example.model.Plant;
+import org.example.model.Specimen;
+import org.example.model.repository.PlantRepository;
 
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
@@ -31,9 +32,9 @@ public class PlantExporter {
                         plant.getName() + "," +
                         specimenStr + "," + "\n");
             }
-            System.out.println("✅ Plants exported successfully to CSV: " + filePath);
+            System.out.println("Plants exported successfully to CSV: " + filePath);
         } catch (IOException e) {
-            System.err.println("❌ Error exporting plants to CSV: " + e.getMessage());
+            System.err.println("Error exporting plants to CSV: " + e.getMessage());
         }
     }
 
@@ -73,9 +74,9 @@ public class PlantExporter {
 
             document.write(fos);
             document.close();
-            System.out.println("✅ Plants exported successfully to DOC: " + filePath);
+            System.out.println("Plants exported successfully to DOC: " + filePath);
         } catch (IOException e) {
-            System.err.println("❌ Error exporting plants to DOC: " + e.getMessage());
+            System.err.println("Error exporting plants to DOC: " + e.getMessage());
         }
     }
 }
