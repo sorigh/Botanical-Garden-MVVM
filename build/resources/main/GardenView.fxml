@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<GridPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.view.GardenView"
+          hgap="10" vgap="10">
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+
+    <!-- Main layout with TableView on the left and controls on the right -->
+    <HBox GridPane.columnSpan="2" spacing="10" HBox.hgrow="ALWAYS">
+        <!-- TableView on the left -->
+        <VBox spacing="20">
+            <TableView fx:id="plantTable" prefWidth="500">
+                <columns>
+                    <TableColumn fx:id="idColumn" text="Id"/>
+                    <TableColumn fx:id="typeColumn" text="Type"/>
+                    <TableColumn fx:id="nameColumn" text="Name"/>
+                    <TableColumn fx:id="speciesColumn" text="Species"/>
+                    <TableColumn fx:id="carnivoreColumn" text="Carnivorous"/>
+                </columns>
+            </TableView>
+
+            <TableView fx:id="specimenTable" prefWidth="500">
+                <columns>
+                    <TableColumn fx:id="specimenIdColumn" text="Specimen Id" prefWidth="50"/>
+                    <TableColumn fx:id="plantIdColumn" text="Plant Id" prefWidth="100"/>
+                    <TableColumn fx:id="locationColumn" text="Location" prefWidth="200"/>
+                    <TableColumn fx:id="imageColumn" text="Image" prefWidth="150"/>
+                </columns>
+            </TableView>
+
+            <!-- HBox for search controls next to the specimenTable -->
+            <HBox spacing="10">
+                <TextField fx:id="specimenSearchField" promptText="Search specimens..." />
+                <Button fx:id="specimenSearchButton" text="Search Specimens"/>
+            </HBox>
+        </VBox>
+
+        <!-- Controls on the right -->
+        <VBox spacing="10">
+            <!-- Filter Controls -->
+            <ComboBox fx:id="filterTypeBox" prefWidth="150"/>
+            <CheckBox fx:id="filterCarnivorousCheck" text="Carnivorous"/>
+            <Button fx:id="filterButton" text="Filter Plants"/>
+            <Button fx:id="exportButton" text="Export Plants to CSV"/>
+            <Button fx:id="exportDocButton" text="Export Plants to DOC"/>
+        </VBox>
+    </HBox>
+
+    <!-- Message Label at the bottom -->
+    <Label fx:id="messageLabel" GridPane.rowIndex="6" GridPane.columnSpan="2"/>
+</GridPane>

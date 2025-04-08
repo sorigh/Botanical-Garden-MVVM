@@ -134,7 +134,7 @@ public class PlantViewModel {
     }
 
     private PlantDTO convertToDTO(Plant plant) {
-        return new PlantDTO(plant.getPlant_id(), plant.getName(), plant.getSpecies(), plant.getType(), plant.getCarnivore());
+        return new PlantDTO(plant.getPlant_id(), plant.getName(), plant.getType(),plant.getSpecies(), plant.getCarnivore());
     }
 
     // Getters for View Binding
