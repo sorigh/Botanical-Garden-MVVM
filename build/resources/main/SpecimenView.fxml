@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<GridPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.view.SpecimenView"
+          hgap="10" vgap="10">
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+    <!-- TableView -->
+    <TableView fx:id="specimenTable" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="4">
+        <columns>
+            <TableColumn fx:id="idColumn" text="Id" prefWidth="50" />
+            <TableColumn fx:id="plantIdColumn" text="Plant Id" prefWidth="50" />
+            <TableColumn fx:id="locationColumn" text="Location" prefWidth="200" />
+            <TableColumn fx:id="imageColumn" text="Image" prefWidth="150" />
+        </columns>
+    </TableView>
+
+    <!-- Input Fields -->
+    <Label text="Location:" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+    <TextField fx:id="locationField" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+
+    <Label text="Image URL:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+    <TextField fx:id="imageUrlField" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+
+    <Label text="Plant ID:" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+    <TextField fx:id="plantIdField" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+
+    <!-- Buttons -->
+    <HBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.columnSpan="2">
+        <Button fx:id="addButton" text="Add" />
+        <Button fx:id="updateButton" text="Update" />
+        <Button fx:id="deleteButton" text="Delete" />
+        <Button fx:id="clearFieldsButton" text="Clear" />
+    </HBox>
+
+    <!-- Message Label -->
+    <Label fx:id="messageLabel" GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.columnSpan="3" />
+</GridPane>
