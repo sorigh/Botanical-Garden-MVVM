@@ -24,7 +24,7 @@ public class Main extends Application {
             // Load views from FXML
             plantView = loadFXML("/PlantView.fxml");
             specimenView = loadFXML("/SpecimenView.fxml");
-            //gardenView = loadFXML("/org/example/view/GardenView.fxml");
+            gardenView = loadFXML("/GardenView.fxml");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -37,7 +37,7 @@ public class Main extends Application {
         Button buttonGarden = new Button("Garden");
 
         HBox menuBar = new HBox(20, buttonPlants, buttonSpecimens, buttonGarden);
-        menuBar.setPadding(new Insets(20));
+        menuBar.setPadding(new Insets(10, 10, 10, 10)); // top, right, bottom, left
 
         BorderPane root = new BorderPane();
         root.setTop(menuBar);
@@ -62,6 +62,7 @@ public class Main extends Application {
         }
         return loader.load();
     }
+
     public static void main(String[] args) {
         launch(args);
     }
