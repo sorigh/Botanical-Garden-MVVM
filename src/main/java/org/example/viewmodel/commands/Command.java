@@ -1,4 +1,4 @@
-package org.example.viewmodel;
+package org.example.viewmodel.commands;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;

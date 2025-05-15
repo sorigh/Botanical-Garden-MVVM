@@ -5,12 +5,11 @@ package org.example.viewmodel;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import org.example.model.Plant;
 import org.example.model.repository.PlantRepository;
+import org.example.viewmodel.commands.Command;
 import org.example.viewmodel.dto.PlantDTO;
 
 import java.util.List;

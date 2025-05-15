@@ -5,8 +5,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import org.example.model.Specimen;
 import org.example.model.repository.SpecimenRepository;
+import org.example.viewmodel.commands.Command;
 import org.example.viewmodel.dto.SpecimenDTO;
 
 import java.util.List;
@@ -63,6 +66,26 @@ public class SpecimenViewModel {
             }
         });
     }
+
+    // Convert image URL to ImageView (or Image)
+    public ImageView getImageForSpecimen(SpecimenDTO specimenDTO) {
+        if (specimenDTO != null && specimenDTO.getImageUrl() != null && !specimenDTO.getImageUrl().isEmpty()) {
+            try {
+                // Construct the path relative to the 'resources' directory
+                String imagePath = "/" + specimenDTO.getImageUrl();  // No need for leading slash here
+                // Load image using ClassLoader to access resources in the classpath
+                Image image = new Image(getClass().getResource(imagePath).toString());
+                ImageView imageView = new ImageView(image);
+                imageView.setFitWidth(100); // Set fixed width
+                imageView.setFitHeight(100); // Set fixed height
+                return imageView;
+            } catch (Exception e) {
+                System.err.println("Error loading image: " + e.getMessage());
+            }
+        }
+        return null; // Return null if the image URL is invalid
+    }
+
 
     public void loadSpecimens() {
         List<SpecimenDTO> dtos = repository.getTableContent().stream()
